@@ -1,0 +1,20 @@
+[
+    {
+        "id": "40b0d852e4fbc5a9",
+        "type": "ui_toast",
+        "z": "d8b14dea0c5b3166",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "topic": "Dit KØd er 58 grader varmt aka varmen til rødt kød",
+        "name": "",
+        "x": 1540,
+        "y": 20,
+        "wires": []
+    }
+]
