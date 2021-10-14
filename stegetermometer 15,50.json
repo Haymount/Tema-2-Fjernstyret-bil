@@ -1,0 +1,1036 @@
+[
+    {
+        "id": "d8b14dea0c5b3166",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "665946e223281927",
+        "type": "ui_dropdown",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "label": "Kødtype",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "3a7b3f9a1210cfe9",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "tom",
+                "value": "tom",
+                "type": "str"
+            },
+            {
+                "label": "Kalv",
+                "value": "Kalv",
+                "type": "str"
+            },
+            {
+                "label": "Gris",
+                "value": "Gris",
+                "type": "str"
+            },
+            {
+                "label": "Kylling",
+                "value": "Kylling stegning",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 380,
+        "y": 400,
+        "wires": [
+            [
+                "de1da8c8cc22c521"
+            ]
+        ]
+    },
+    {
+        "id": "de1da8c8cc22c521",
+        "type": "switch",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Kalv",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Gris",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 510,
+        "y": 400,
+        "wires": [
+            [
+                "69c4d91fb44d14a9",
+                "5035e32f6f2f6dd1"
+            ],
+            [
+                "1325f45fbf109c40",
+                "5035e32f6f2f6dd1"
+            ]
+        ]
+    },
+    {
+        "id": "1325f45fbf109c40",
+        "type": "ui_ui_control",
+        "z": "d8b14dea0c5b3166",
+        "name": "Gris",
+        "events": "all",
+        "x": 670,
+        "y": 440,
+        "wires": [
+            [
+                "7dcd6b87fb9a39bd"
+            ]
+        ]
+    },
+    {
+        "id": "69c4d91fb44d14a9",
+        "type": "ui_ui_control",
+        "z": "d8b14dea0c5b3166",
+        "name": "Kalv",
+        "events": "all",
+        "x": 670,
+        "y": 360,
+        "wires": [
+            [
+                "dcab6ce78004e1c6"
+            ]
+        ]
+    },
+    {
+        "id": "dcab6ce78004e1c6",
+        "type": "ui_dropdown",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "label": "Stegning kalv",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "75800d223b23a46d",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Rød",
+                "value": "Kalv Rød",
+                "type": "str"
+            },
+            {
+                "label": "Medium",
+                "value": "Kalv Medium",
+                "type": "str"
+            },
+            {
+                "label": "Gennemstegt",
+                "value": "Kalv Gennemstegt",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 840,
+        "y": 360,
+        "wires": [
+            [
+                "b18ec9236ac0f6a7"
+            ]
+        ]
+    },
+    {
+        "id": "7dcd6b87fb9a39bd",
+        "type": "ui_dropdown",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "label": "Stegning gris",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "d5cc4ec50b33805f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Rød",
+                "value": "Gris Rød",
+                "type": "str"
+            },
+            {
+                "label": "Medium",
+                "value": "Gris Medium",
+                "type": "str"
+            },
+            {
+                "label": "Gennemstegt",
+                "value": "Gris gennemstegt",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 830,
+        "y": 440,
+        "wires": [
+            [
+                "e875a82dcf77ba57"
+            ]
+        ]
+    },
+    {
+        "id": "5035e32f6f2f6dd1",
+        "type": "debug",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "2011b1bee1611ddc",
+        "type": "ui_text",
+        "z": "d8b14dea0c5b3166",
+        "group": "3a7b3f9a1210cfe9",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "Sej tekst",
+        "label": "Du må gerne vælge den slags kød som skal laves. Når du har valgt en slags, bliver du smidt til næste side.",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 520,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "b18ec9236ac0f6a7",
+        "type": "switch",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Kalv Rød",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Kalv Medium",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Kalv Gennemstegt",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 970,
+        "y": 200,
+        "wires": [
+            [
+                "52029cdeca430dc3",
+                "eae28d7731f6c0e0",
+                "4b9c298abb5a6cbe"
+            ],
+            [
+                "08023cd3ba29627f",
+                "eae28d7731f6c0e0",
+                "4b9c298abb5a6cbe"
+            ],
+            [
+                "9ba62e8a13473337",
+                "eae28d7731f6c0e0",
+                "4b9c298abb5a6cbe"
+            ]
+        ]
+    },
+    {
+        "id": "e875a82dcf77ba57",
+        "type": "switch",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Gris Medium",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Gris gennemstegt",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 970,
+        "y": 440,
+        "wires": [
+            [
+                "d5229e547f9f27f5",
+                "596f0e743266164a",
+                "4b9c298abb5a6cbe"
+            ],
+            [
+                "e3662a0528f4453c",
+                "d5229e547f9f27f5",
+                "4b9c298abb5a6cbe"
+            ]
+        ]
+    },
+    {
+        "id": "52029cdeca430dc3",
+        "type": "ui_ui_control",
+        "z": "d8b14dea0c5b3166",
+        "name": "Kalv Rød",
+        "events": "all",
+        "x": 1140,
+        "y": 160,
+        "wires": [
+            [
+                "d4eaeda05d20dbb6"
+            ]
+        ]
+    },
+    {
+        "id": "08023cd3ba29627f",
+        "type": "ui_ui_control",
+        "z": "d8b14dea0c5b3166",
+        "name": "Kalv Medium",
+        "events": "all",
+        "x": 1150,
+        "y": 200,
+        "wires": [
+            [
+                "e2cb58ca658d442d"
+            ]
+        ]
+    },
+    {
+        "id": "9ba62e8a13473337",
+        "type": "ui_ui_control",
+        "z": "d8b14dea0c5b3166",
+        "name": "Kalv Gennemstegt",
+        "events": "all",
+        "x": 1170,
+        "y": 240,
+        "wires": [
+            [
+                "afd757348d77a743"
+            ]
+        ]
+    },
+    {
+        "id": "eae28d7731f6c0e0",
+        "type": "debug",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "596f0e743266164a",
+        "type": "ui_ui_control",
+        "z": "d8b14dea0c5b3166",
+        "name": "Gris Medium",
+        "events": "all",
+        "x": 1150,
+        "y": 440,
+        "wires": [
+            [
+                "85c831e834499e85"
+            ]
+        ]
+    },
+    {
+        "id": "e3662a0528f4453c",
+        "type": "ui_ui_control",
+        "z": "d8b14dea0c5b3166",
+        "name": "Gris gennemstegt",
+        "events": "all",
+        "x": 1170,
+        "y": 480,
+        "wires": [
+            [
+                "afd60ea73504f5d9"
+            ]
+        ]
+    },
+    {
+        "id": "d5229e547f9f27f5",
+        "type": "debug",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "9459ff207bec5054",
+        "type": "ui_text",
+        "z": "d8b14dea0c5b3166",
+        "group": "d5cc4ec50b33805f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Gris tekst",
+        "label": "Her skal du vælge hvordan dit kød skal steges",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 820,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f29bd2442b8af4a1",
+        "type": "ui_text",
+        "z": "d8b14dea0c5b3166",
+        "group": "75800d223b23a46d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Kalv tekst",
+        "label": "Her skal du vælge hvordan dit kød skal steges",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 820,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d4eaeda05d20dbb6",
+        "type": "ui_gauge",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "4c7e4e50fd499496",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "90",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1330,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e2cb58ca658d442d",
+        "type": "ui_gauge",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "0562936a51c32d61",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "90",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1330,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "afd757348d77a743",
+        "type": "ui_gauge",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "ac5b01b69755fbe1",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "90",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1330,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "85c831e834499e85",
+        "type": "ui_gauge",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "4af2b6231bec426f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "90",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1330,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "afd60ea73504f5d9",
+        "type": "ui_gauge",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "5f3ad3fe9d1cbd98",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "90",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1330,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "1b7315f51f6b3b40",
+        "type": "inject",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 100,
+        "wires": [
+            [
+                "e6bef239c1a82b1b"
+            ]
+        ]
+    },
+    {
+        "id": "7a14974db51b352d",
+        "type": "function",
+        "z": "d8b14dea0c5b3166",
+        "name": "celsius",
+        "func": "var adcVal = msg.payload;\n/*\n//beregner spænding\n    var volts = (adcVal * 3.3) / 1023;\n\n//beregner spænding https://dev.to/adamkdean/spi-with-mcp3008-adc-chip-tmp36-analogue-temp-sensor-b3c\n    var tempC = volts * 12.22;\n\nmsg.payload = tempC;\n110.8*10^-0.003\n*/\n\n//Her bruger vi vores funktion fra excel arket, til at tilnærme os en temperatur\n//ved at erstatte x med vores adc værdi.\n//Math.pow er en måde at opløfte et tal i et andet. Math.E er eulers tal.\n//msg.payload = 110.8*Math.pow(Math.E , -0.003 * adcVal);\n\n\nmsg.payload = Math.round(116.36*Math.pow(Math.E , -0.003 * adcVal));\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 100,
+        "wires": [
+            [
+                "d4eaeda05d20dbb6",
+                "e2cb58ca658d442d",
+                "afd757348d77a743",
+                "85c831e834499e85",
+                "afd60ea73504f5d9",
+                "4b9c298abb5a6cbe"
+            ]
+        ]
+    },
+    {
+        "id": "276f207db0546e4e",
+        "type": "ui_button",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "ac5b01b69755fbe1",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Log temperatur",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1640,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3178fb0fab9f72e0",
+        "type": "debug",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6a3d1501e557a4c9",
+        "type": "file",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "filename": "/home/pi/Documents/Logs/sejtemp.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1630,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e6bef239c1a82b1b",
+        "type": "pimcp3008",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "dev": "3008",
+        "pin": 0,
+        "dnum": 0,
+        "bus": 0,
+        "x": 590,
+        "y": 100,
+        "wires": [
+            [
+                "7a14974db51b352d"
+            ]
+        ]
+    },
+    {
+        "id": "4b9c298abb5a6cbe",
+        "type": "function",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "func": "if (msg.payload == 26 && msg.payload == \"kalv Rød\"){\n    msg.payload = \"færdig\";\n    return msg;\n}\n\nelse if (msg.payload == 63 && msg.payload == \"kalv Medium\"){\n    msg.payload = \"færdig\";\n    return msg;\n}\n\nelse if (msg.payload == 67 && msg.payload == \"kalv Gennemstegt\"){\n    msg.payload = \"færdig\";\n    return msg;\n}\n\nelse if (msg.payload == 65 && msg.payload == \"gris Medium\"){\n    msg.payload = \"færdig\";\n    return msg;\n}\n\nelse if (msg.payload == 70 && msg.payload == \"gris Gennemstegt\"){\n    msg.payload = \"færdig\";\n    return msg;\n}\n\nelse {\n    msg.payload = \"fejl\";\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 320,
+        "wires": [
+            [
+                "40b0d852e4fbc5a9",
+                "3178fb0fab9f72e0"
+            ]
+        ]
+    },
+    {
+        "id": "173cd09c72950d2c",
+        "type": "ui_button",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "6483a2cf2f4eb307",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Log temperatur",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1640,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "40b0d852e4fbc5a9",
+        "type": "ui_toast",
+        "z": "d8b14dea0c5b3166",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "msg.payload",
+        "topic": "Dit KØd er 58 grader varmt aka varmen til rødt kød",
+        "name": "",
+        "x": 1320,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d5f868f8e9f94213",
+        "type": "ui_button",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "4af2b6231bec426f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Log temperatur",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1640,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a599e26f6e369706",
+        "type": "ui_button",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "5f3ad3fe9d1cbd98",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Log temperatur",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1640,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5c19714fe83259cb",
+        "type": "ui_button",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "0562936a51c32d61",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Log temperatur",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1640,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "07a3547e4c9a94ef",
+        "type": "ui_button",
+        "z": "d8b14dea0c5b3166",
+        "name": "",
+        "group": "4c7e4e50fd499496",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Log temperatur",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1640,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3a7b3f9a1210cfe9",
+        "type": "ui_group",
+        "name": "Start Menu",
+        "tab": "79a339a3c634d850",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "75800d223b23a46d",
+        "type": "ui_group",
+        "name": "Kalv",
+        "tab": "8edd2ebf7ac1b42c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "d5cc4ec50b33805f",
+        "type": "ui_group",
+        "name": "Gris",
+        "tab": "9aa2ac2fb0ce1c7a",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "4c7e4e50fd499496",
+        "type": "ui_group",
+        "name": "Kalv Rød",
+        "tab": "d520983f11c23130",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "0562936a51c32d61",
+        "type": "ui_group",
+        "name": "Kalv Medium",
+        "tab": "d1604a145e629c38",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ac5b01b69755fbe1",
+        "type": "ui_group",
+        "name": "Kalv Gennemstegt",
+        "tab": "dc6d436b4dedf917",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "4af2b6231bec426f",
+        "type": "ui_group",
+        "name": "Gris Medium",
+        "tab": "f1aabf550721cb74",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "5f3ad3fe9d1cbd98",
+        "type": "ui_group",
+        "name": "Gris gennemstegt",
+        "tab": "2225fe601674a15c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "6483a2cf2f4eb307",
+        "type": "ui_group",
+        "name": "Kylling stegning",
+        "tab": "1ba90f21d71be508",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "79a339a3c634d850",
+        "type": "ui_tab",
+        "name": "Start Menu",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "8edd2ebf7ac1b42c",
+        "type": "ui_tab",
+        "name": "Kalv",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9aa2ac2fb0ce1c7a",
+        "type": "ui_tab",
+        "name": "Gris",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d520983f11c23130",
+        "type": "ui_tab",
+        "name": "Kalv Rød",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d1604a145e629c38",
+        "type": "ui_tab",
+        "name": "Kalv Medium",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "dc6d436b4dedf917",
+        "type": "ui_tab",
+        "name": "Kalv Gennemstegt",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "f1aabf550721cb74",
+        "type": "ui_tab",
+        "name": "Gris Medium",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "2225fe601674a15c",
+        "type": "ui_tab",
+        "name": "Gris gennemstegt",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "1ba90f21d71be508",
+        "type": "ui_tab",
+        "name": "Kylling stegning",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
