@@ -44,12 +44,26 @@ while gameLoop:
             data = "23"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
-            skt.sendto(nyt_data, (host, port))
             
-        if event.type == pygame.K_q and event.key == pygame.K_t:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
             data = "24"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_a:    
+            data = "13"
+            nyt_data = data.encode("UTF-8")
+            skt.sendall(nyt_data)        
           
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+            data = "14"
+            nyt_data = data.encode("UTF-8")
+            skt.sendall(nyt_data)
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
+            data = "15"
+            nyt_data = data.encode("UTF-8")
+            skt.sendall(nyt_data)
+
     pygame.display.flip()
 skt.close()
