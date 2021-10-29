@@ -18,8 +18,6 @@ port = 4200
 
 skt.connect((host, port))
 
-dataListe = ["Fister", "medister", "poelse", "dit", "lokum"]
-
 while gameLoop:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
