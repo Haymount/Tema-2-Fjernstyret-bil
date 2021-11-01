@@ -32,7 +32,7 @@ while gameLoop:
             data = "18"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
-            
+        
         if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
             data = "22"
             nyt_data = data.encode("UTF-8")
