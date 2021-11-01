@@ -1,17 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 26 16:31:55 2018
-
-Klient/serverkode til Roverstyring på Raspberry Pi.
-Denne fil indeholder serverdelen.
-
-Version 2: Interaktiv styring fra klientens side via pygame.
-
-@author: HTH
-"""
 
 import socket
-import gpiozero as io
+from typing import Match
+import RPi.GPIO as g
 
 print("Kører serveren\n")
 
@@ -23,50 +14,30 @@ skt.bind((host, port))
 
 skt.listen(1) # Lytter til indkomne forbindelser, en ad gangen
 
-greenLED1 = io.LED(17)
-greenLED2 = io.LED(18)
-orangeLED1 = io.LED(22)
-orangeLED2 = io.LED(23)
-redLED = io.LED(24)
+g.setmode(g.BCM)
+g.setup(16, g.OUT)
+g.setup(20, g.OUT)
+g.setup(12, g.OUT)
 
-ledStatus = [0,0,0,0,0]
+p = g.PWM(16, 50)
 
-def toggleLED(ledID):
-    if ledID == "17":
-        if ledStatus[0] == 0:
-            greenLED1.on()
-            ledStatus[0] = 1
-        else:
-            greenLED1.off()
-            ledStatus[0] = 0
-    if ledID == "18":
-        if ledStatus[1] == 0:
-            greenLED2.on()
-            ledStatus[1] = 1
-        else:
-            greenLED2.off()
-            ledStatus[1] = 0
-    if ledID == "22":
-        if ledStatus[2] == 0:
-            orangeLED1.on()
-            ledStatus[2] = 1
-        else:
-            orangeLED1.off()
-            ledStatus[2] = 0
-    if ledID == "23":
-        if ledStatus[3] == 0:
-            orangeLED2.on()
-            ledStatus[3] = 1
-        else:
-            orangeLED2.off()
-            ledStatus[3] = 0
-    if ledID == "24":
-        if ledStatus[4] == 0:
-            redLED.on()
-            ledStatus[4] = 1
-        else:
-            redLED.off()
-            ledStatus[4] = 0
+p.start(18)
+
+g.output(20, 1)
+
+g.output(12, 1)
+
+def motorctrl(retning):
+    match retning:
+        case '18':
+            return 1
+        case '13':
+            return 2
+        case '14':        
+            return 0
+        case '15':
+
+
 
 while True:
     forbindelse, addresse = skt.accept()
@@ -79,11 +50,13 @@ while True:
         
         if data:
             print("Data: ", decdata)
-            
-            toggleLED(decdata)
 
 
         else:
             print("Ikke mere data.\n")
             forbindelse.close()
             break
+    
+    motorctrl(decdata)
+
+
