@@ -23,37 +23,34 @@ g.setup(26, g.OUT) #m3
 g.setup(21, g.OUT) #m4
 g.setup(13, g.OUT) #en2
 
-m1 = g.PWM(16, 75)
-m3 = g.PWM(26, 75)
-#m1.start(0)
-#m3.start(0)
+en1 = g.PWM(12, 75)
+en2 = g.PWM(13, 75)
+en1.start(0)
+en2.start(0)
 
-g.output(20, 1)
-g.output(12, 1)
+g.output(12, 1) #en1
+g.output(16, 1) #m1
 
-g.output(13, 1)
-g.output(21, 1)
+g.output(13, 1) #en2
+g.output(26, 1) #m2
 
 def motorctrl(retning):
 
+    print("motorctrl: " + str(retning))
+
 
     if retning == 18:
-        m1.ChangeDutyCycle(100)
-        m3.ChangeDutyCycle(100)
+        en1.ChangeDutyCycle(50)
+        en2.ChangeDutyCycle(50)
+        print("retning1: " + str(retning))
     
-    else:
-        m1.ChangeDutyCycle(0)
-        m3.ChangeDutyCycle(0)
+    
 
 
 
 
 while True:
-    
-    
-    m1.ChangeDutyCycle(0)
-    m3.ChangeDutyCycle(0)
-    
+
     forbindelse, addresse = skt.accept()
     print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
     
