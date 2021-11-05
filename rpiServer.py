@@ -4,6 +4,7 @@ import socket
 from typing import Match
 import RPi.GPIO as g
 
+
 print("Kører serveren\n")
 
 host = "192.168.1.249" # Dette er IP-adressen for Raspberry Pi
@@ -15,41 +16,53 @@ skt.bind((host, port))
 skt.listen(1) # Lytter til indkomne forbindelser, en ad gangen
 
 g.setmode(g.BCM)
-g.setup(16, g.OUT)
-g.setup(20, g.OUT)
-g.setup(12, g.OUT)
+g.setup(16, g.OUT) #m1
+g.setup(20, g.OUT) #m2
+g.setup(12, g.OUT) #en1
+g.setup(26, g.OUT) #m3
+g.setup(21, g.OUT) #m4
+g.setup(13, g.OUT) #en2
 
-p = g.PWM(16, 50)
+en1 = g.PWM(12, 75)
+en2 = g.PWM(13, 75)
+en1.start(0)
+en2.start(0)
 
-p.start(18)
+g.output(12, 1) #en1
+g.output(16, 1) #m1
 
-g.output(20, 1)
-
-g.output(12, 1)
+g.output(13, 1) #en2
+g.output(26, 1) #m2
 
 def motorctrl(retning):
-    match retning:
-        case '18':
-            return 1
-        case '13':
-            return 2
-        case '14':        
-            return 0
-        case '15':
+
+    print("motorctrl: " + str(retning))
+
+
+    if retning == 18:
+        en1.ChangeDutyCycle(50)
+        en2.ChangeDutyCycle(50)
+        print("retning1: " + str(retning))
+    
+    
+
 
 
 
 while True:
+
     forbindelse, addresse = skt.accept()
     print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
     
     while True:
         
+
         data = forbindelse.recv(64)
         decdata = data.decode("UTF-8")
         
         if data:
             print("Data: ", decdata)
+            motorctrl(decdata)
 
 
         else:
@@ -57,6 +70,6 @@ while True:
             forbindelse.close()
             break
     
-    motorctrl(decdata)
+        
 
 
