@@ -15,7 +15,6 @@ pygame.display.set_caption("Motorstyring") #Det er navnet på programet
 skærmfarve = (0, 255, 185)
 
 print("Kører klienten\n")
-print("5\n")
 
 FPS = 60 #bestemmer maks fps. bare så det ikke ender med at lagge noget ud.
 
@@ -32,7 +31,7 @@ def draw_windue(styr): #Her er noget styring til skærmen
     pygame.display.update()
 
 def main(): #Det vigtige kode er her
-    styr = pygame.Rect(0, 0, 507, 676)
+    styr = pygame.Rect(195, 0, 507, 676)
 
     clock = pygame.time.Clock()
     gameLoop = True
@@ -43,10 +42,14 @@ def main(): #Det vigtige kode er her
                 gameLoop = False
             elif event.type == pygame.KEYDOWN:
                 keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
-                if keys[pygame.K_w]: #Fuldskrue frem ad -tror jeg
-                    data = "100,100"
+                if keys[pygame.K_w]: #Fuldskrue frem ad
+                    data = "v100"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
+                    data = "h100"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+
 
                 elif keys[pygame.K_q]: #Hvis vi skal have blink lys eller bare bruge q og e til noget
                     data = "lysV"
@@ -58,25 +61,40 @@ def main(): #Det vigtige kode er her
                     skt.sendall(nyt_data)
 
                 elif keys[pygame.K_a]: #Her burde den dreje til venstre
-                    data = "0,100"
+                    data = "v0"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
-                elif keys[pygame.K_w and pygame.K_a]:
-                    data = "80,100"
+                    data = "h100"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
-
+                elif keys[pygame.K_w & pygame.K_a]:
+                    data = "v80"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    data = "h100"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    
                 elif keys[pygame.K_s]: #Fuldstop ind til videre -tror jeg
-                    data = "0,0"
+                    data = "v0"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    data = "h0"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
                 elif keys[pygame.K_d]: #Her dreje til højre man gør
-                    data = "100,0"
+                    data = "v100"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    data = "h0"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                 elif keys[pygame.K_w and pygame.K_d]:
-                    data = "100,80"
+                    data = "v100"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    data = "h80"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
