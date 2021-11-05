@@ -43,7 +43,7 @@ def main(): #Det vigtige kode er her
                 gameLoop = False
             elif event.type == pygame.KEYDOWN:
                 keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
-                if keys[pygame.K_w]: #Fuldskrue frem ad
+                if keys[pygame.K_w]: #Fuldskrue frem ad -tror jeg
                     data = "100,100"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
