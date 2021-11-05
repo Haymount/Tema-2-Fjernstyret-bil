@@ -34,17 +34,10 @@ g.output(16, 1) #m1
 g.output(13, 1) #en2
 g.output(26, 1) #m2
 
-def motorctrl(retning):
+def motorctrl(b,c):
+    en1.ChangeDutyCycle(b)
+    en2.ChangeDutyCycle(c)
 
-    print("motorctrl: " + str(retning))
-
-
-    if retning == 18:
-        en1.ChangeDutyCycle(50)
-        en2.ChangeDutyCycle(50)
-        print("retning1: " + str(retning))
-    
-    
 
 
 
@@ -56,13 +49,30 @@ while True:
     
     while True:
         
-
+        hdata = 0
+        vdata = 0
         data = forbindelse.recv(64)
         decdata = data.decode("UTF-8")
         
+        if (decdata[0] == "h"):
+            #print("l57")
+            hdata = decdata.replace("h","")
+            print("hdata: " + hdata)
+            hdata = int(hdata)
+        
+        elif (decdata[0] == "v"):
+            #print("l63")
+            vdata = decdata.replace("v","")
+            print(vdata)
+            vdata = int(vdata)
+
+
+
         if data:
             print("Data: ", decdata)
-            motorctrl(decdata)
+            motorctrl(hdata, vdata)
+            
+
 
 
         else:
