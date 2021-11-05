@@ -5,15 +5,13 @@ pygame.init()
 screen = pygame.display.set_mode((320, 240))
 pygame.display.set_caption("Motorstyring")
 
-#clock = pygame.time.Clock()
-
 gameLoop = True
 
 print("Kører klienten\n")
 
 skt = socket.socket()
 
-host = "192.168.1.249" # Ip-addressen for Raspberry Pi
+host = "192.168.1.249" #Ip-addressen for Raspberry Pi
 port = 4200
 
 skt.connect((host, port))
@@ -24,17 +22,17 @@ while gameLoop:
             gameLoop = False
             
         if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-            data = "17"
+            data = "lysV"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
             
         if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
-            data = "18"
+            data = "100,100"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
         
         if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
-            data = "22"
+            data = "lysH"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
             
@@ -49,17 +47,17 @@ while gameLoop:
             skt.sendall(nyt_data)
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_a:    
-            data = "13"
+            data = "100,80"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)        
-          
+        
         if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-            data = "14"
+            data = "0,0"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-            data = "15"
+            data = "80,100"
             nyt_data = data.encode("UTF-8")
             skt.sendall(nyt_data)
 
