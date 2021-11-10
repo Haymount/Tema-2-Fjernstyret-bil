@@ -28,10 +28,10 @@ en2 = g.PWM(13, 75)
 en1.start(0)
 en2.start(0)
 
-g.output(12, 1) #en1
+g.output(20, 0) #m2
 g.output(16, 1) #m1
 
-g.output(13, 1) #en2
+g.output(21, 0) #m4
 g.output(26, 1) #m2
 
 def motorctrl(b,c):
@@ -39,18 +39,17 @@ def motorctrl(b,c):
     en2.ChangeDutyCycle(c)
 
 
-
-
-
 while True:
 
     forbindelse, addresse = skt.accept()
     print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
     
+    hdata = 0
+    vdata = 0
+
     while True:
         
-        hdata = 0
-        vdata = 0
+     
         data = forbindelse.recv(64)
         decdata = data.decode("UTF-8")
         
@@ -63,17 +62,15 @@ while True:
         elif (decdata[0] == "v"):
             #print("l63")
             vdata = decdata.replace("v","")
-            print(vdata)
+            print("vdata: " + vdata)
             vdata = int(vdata)
 
 
 
         if data:
-            print("Data: ", decdata)
+            #print("Data: ", decdata)
             motorctrl(hdata, vdata)
             
-
-
 
         else:
             print("Ikke mere data.\n")
