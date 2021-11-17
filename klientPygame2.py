@@ -47,48 +47,40 @@ def main(): #Det vigtige kode er her
                 global angle
 
                 if keys[pygame.K_w] and keys[pygame.K_d]: 
-                    data = "100,55"
+                    data = "1,100,60"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle += 35
                 elif keys[pygame.K_w] and keys[pygame.K_a]:
-                    data = "80,100"
+                    data = "1,80,100"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle -= 35
-                    
+                    #
                 elif keys[pygame.K_w]: #Fuldskrue frem ad
-                    data = "100,75" #V sendes først også H muligvis den anden vej rundt
-                    nyt_data = data.encode("UTF-8")
-                    skt.sendall(nyt_data)
-                elif keys[pygame.K_q]: #Hvis vi skal have blink lys eller bare bruge q og e til noget
-                    data = "lysV"
-                    nyt_data = data.encode("UTF-8")
-                    skt.sendall(nyt_data)
-                elif keys[pygame.K_e]:
-                    data = "lysH"
+                    data = "1,100,75" #V sendes først også H muligvis den anden vej rundt
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
                 elif keys[pygame.K_a]: #Her burde den dreje til venstre
-                    data = "0,100"
+                    data = "1,0,100"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle += 50
                     
                 elif keys[pygame.K_s]: #Fuldstop ind til videre -tror jeg
-                    data = "0,0"
+                    data = "0,100,55"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
                 elif keys[pygame.K_d]: #Her dreje til højre man gør
-                    data = "100,0"
+                    data = "1,100,0"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle -= 50
 
                 else:
-                    data = "0,0" #Her stopper bilen hvis vi ikke bruger nogle knapper
+                    data = "0,0,0" #Her stopper bilen hvis vi ikke bruger nogle knapper
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
