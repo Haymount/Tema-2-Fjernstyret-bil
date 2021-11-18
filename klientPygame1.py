@@ -58,5 +58,5 @@ while gameLoop:
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
-    pygame.display.flip()
+pygame.display.flip()
 skt.close()
