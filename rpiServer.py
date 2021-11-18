@@ -27,14 +27,22 @@ en2 = g.PWM(13, 75)
 en1.start(0)
 en2.start(0)
 
-g.output(20, 0) #m2
-g.output(16, 1) #m1
-g.output(21, 0) #m4
-g.output(26, 1) #m2
 
+def motorpol(a): #Retningsstyring
+    if a == 1: #Fremad
+        g.output(20, 0) #m2
+        g.output(16, 1) #m1
+        g.output(21, 0) #m4
+        g.output(26, 1) #m3
+    if a == 0: #Tilbage
+        g.output(20, 1) #m2
+        g.output(16, 0) #m1
+        g.output(21, 1) #m4
+        g.output(26, 0) #m3
 
+def motorctrl(a,b,c):
+    motorpol(a)
 
-def motorctrl(b,c):
     en1.ChangeDutyCycle(b)
     en2.ChangeDutyCycle(c)
 
@@ -50,37 +58,30 @@ def batvoltage():
 try:
     while True:
             batvoltage()
-            continue
             forbindelse, addresse = skt.accept()
             print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
 
-
+            rdata = 0
             hdata = 0
             vdata = 0
 
             while True:
                 
-                
-
                 data = forbindelse.recv(64)
                 decdata = data.decode("UTF-8")
                 arrdata = decdata.split(",")
 
                 try:
-                    vdata = arrdata[0]
-                    hdata = arrdata[1] 
+                    rdata = arrdata[0] #Retnings styring
+                    vdata = arrdata[1] #Venstre motor
+                    hdata = arrdata[2] #Højre motor
                 except IndexError:
                     forbindelse.close()
-                    
-                
-                
+        
 
                 if data:
                     print("Data: ", decdata)
-                    #print("vdata: " + vdata + " , hdata: " + hdata)
-                    motorctrl(int(hdata), int(vdata))
-                    
-                    
+                    motorctrl(int(rdata), int(vdata), int(hdata))
 
                 else:
                     print("Klienten har lukket forbindelsen.\n")
