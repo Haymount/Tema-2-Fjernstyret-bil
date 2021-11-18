@@ -17,49 +17,46 @@ port = 4200
 skt.connect((host, port))
 
 while gameLoop:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            gameLoop = False
-            
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-            data = "lysV"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)
-            
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_w:
-            data = "100,75"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)
-        
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
-            data = "lysH"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)
-            
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
-            data = "23"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)
-            
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
-            data = "24"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameLoop = False
+            elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
+    
+                if keys[pygame.K_w] and keys[pygame.K_d]: 
+                    data = "1,100,60"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    
+                elif keys[pygame.K_w] and keys[pygame.K_a]:
+                    data = "1,80,100"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    
+                elif keys[pygame.K_w]: #Fuldskrue frem ad
+                    data = "1,100,75" #V sendes først også H muligvis den anden vej rundt
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_a:    
-            data = "100,80"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)        
-        
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-            data = "0,0"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)
+                elif keys[pygame.K_a]: #Her burde den dreje til venstre
+                    data = "1,0,100"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    
+                elif keys[pygame.K_s]: #Fuldstop ind til videre -tror jeg
+                    data = "0,100,55"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-            data = "80,100"
-            nyt_data = data.encode("UTF-8")
-            skt.sendall(nyt_data)
+                elif keys[pygame.K_d]: #Her dreje til højre man gør
+                    data = "1,100,0"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+
+                else:
+                    data = "0,0,0" #Her stopper bilen hvis vi ikke bruger nogle knapper
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
 
     pygame.display.flip()
 skt.close()
