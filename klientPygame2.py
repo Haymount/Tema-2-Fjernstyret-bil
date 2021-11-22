@@ -2,6 +2,8 @@ import time
 import pygame
 import socket
 
+#DEn her kode har grafisk
+
 tar = pygame.image.load("Opgave/test socket/sjovTing.png") #Sejt sådan impoterer man et billede
 angle = 0 #viklen som billedet drejer med
 
@@ -17,7 +19,7 @@ batLiv = 5.2 #hvor meget strøm der er
 
 pygame.init()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT)) #Her tegner vi selve skærmen 
-pygame.display.set_caption("Motorstyring") #Det er navnet på programet
+pygame.display.set_caption("HasselHoff") #Det er navnet på programet
 
 #siger lidt sig selv, men det er baggrundsfarven på vores windue(farven står i RGB)
 skærmfarve = (0, 255, 185)
@@ -36,6 +38,9 @@ skt.connect((host, port))
 #print("Værten med " + str(skt.accept[0]) + " har etableret forbindelse.")
 #encodBatLiv = skt.accept.recv(64)
 #batLiv = encodBatLiv.decode("UTF-8")
+
+programIcon = pygame.image.load("Tema 2\Tema-2-Fjernstyret-bil/mette.jpg")
+pygame.display.set_icon(programIcon)
 
 def draw_windue(styr): #Her er noget styring til skærmen
     rotedede = pygame.transform.rotate(tar, angle) #Det her får billedet til at roterer
@@ -59,31 +64,35 @@ def main(): #Det vigtige kode er her
                 keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
                 global angle
 
-                if keys[pygame.K_w] and keys[pygame.K_d]: 
+                if keys[pygame.K_w] and keys[pygame.K_d]: #Det samme som koden nedenuder bare en anden retning
                     data = "1,100,60,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle += 35
-                elif keys[pygame.K_w] and keys[pygame.K_a]:
-                    data = "1,60,100,"
+                elif keys[pygame.K_w] and keys[pygame.K_a]: #Burde at dreje imens den kører bagud
+                    data = "1,40,100,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle -= 35
-                    #
+                    
                 elif keys[pygame.K_w]: #Fuldskrue frem ad
                     data = "1,80,100," #V sendes først også H muligvis den anden vej rundt
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
-                    angle = 0
 
-                elif keys[pygame.K_a]: #Her burde den dreje til venstre
-                    data = "1,0,100,"
+                elif keys[pygame.K_s] and keys[pygame.K_d]:
+                    data = "0,100,60,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
-                    angle += 50
-                    
+                    angle += 35
+                elif keys[pygame.K_s] and keys[pygame.K_a]:
+                    data = "0,40,100,"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    angle -= 35
+
                 elif keys[pygame.K_s]: #Fuldstop ind til videre -tror jeg
-                    data = "0,100,55,"
+                    data = "0,80,100,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
@@ -93,10 +102,20 @@ def main(): #Det vigtige kode er her
                     skt.sendall(nyt_data)
                     angle -= 50
 
+                elif keys[pygame.K_a]: #Her burde den dreje til venstre
+                    data = "1,0,100,"
+                    nyt_data = data.encode("UTF-8")
+                    skt.sendall(nyt_data)
+                    angle += 50
+
+                elif keys[pygame.K_ESCAPE]:
+                    pygame.quit()
+
                 else:
                     data = "0,0,0," #Her stopper bilen hvis vi ikke bruger nogle knapper
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
+                    angle = 0
 
         draw_windue(styr)
     pygame.quit()
