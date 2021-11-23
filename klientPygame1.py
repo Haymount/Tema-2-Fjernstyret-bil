@@ -1,6 +1,8 @@
 import socket
 import pygame
 
+#Koden her har ikke noget grafisk, bare så det ikke fucker op
+
 pygame.init()
 screen = pygame.display.set_mode((320, 240))
 pygame.display.set_caption("Motorstyring")
