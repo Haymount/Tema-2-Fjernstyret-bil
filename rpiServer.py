@@ -4,6 +4,7 @@ import socket
 import RPi.GPIO as g
 from gpiozero import MCP3008
 
+
 print("Kører serveren\n")
 
 host = "192.168.1.249" # Dette er IP-adressen for Raspberry Pi
@@ -14,7 +15,7 @@ skt.bind((host, port))
 skt.listen(1) # Lytter til indkomne forbindelser, en ad gangen
 
 g.setmode(g.BCM)
-g.setup(16, g.OUT) #m1
+g.setup(16, g.OUT) #m1 
 g.setup(20, g.OUT) #m2
 g.setup(12, g.OUT) #en1
 g.setup(26, g.OUT) #m3
@@ -22,8 +23,8 @@ g.setup(21, g.OUT) #m4
 g.setup(13, g.OUT) #en2
 g.setup(7, g.IN)
 
-en1 = g.PWM(12, 75)
-en2 = g.PWM(13, 75)
+en1 = g.PWM(12, 100)
+en2 = g.PWM(13, 100)
 en1.start(0)
 en2.start(0)
 
@@ -52,45 +53,55 @@ def batvoltage():
 
     voltage = round((adc.value*3.3)*(74/27), 2) #Her udregnes spændingen om fra den værdi adc værdi vi får. gpiozero laver adc værdien om til et tal mellem 0 og 1.
     print("voltage: " + str(voltage))
+    #c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #msg = b"Fuck"
+    #c.send(msg.encode())
+    #c.close()
+
+
+
 
 
 #Loop starter her:
-try:
+while True:
+            
+    forbindelse, addresse = skt.accept()
+    skt.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
+
+    rdata = 0
+    hdata = 0
+    vdata = 0
+
+    
     while True:
-            batvoltage()
-            forbindelse, addresse = skt.accept()
-            print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
-
-            rdata = 0
-            hdata = 0
-            vdata = 0
-
-            while True:
                 
-                data = forbindelse.recv(64)
-                decdata = data.decode("UTF-8")
-                arrdata = decdata.split(",")
+            data = forbindelse.recv(64)
+            decdata = data.decode("UTF-8")
+            arrdata = decdata.split(",")
 
-                try:
-                    rdata = arrdata[0] #Retnings styring
-                    vdata = arrdata[1] #Venstre motor
-                    hdata = arrdata[2] #Højre motor
-                except IndexError:
-                    forbindelse.close()
+            try:
+                rdata = arrdata[0] #Retnings styring
+                vdata = arrdata[2] #Venstre motor
+                hdata = arrdata[1] #Højre motor
+            except IndexError:
+                forbindelse.close()
         
 
-                if data:
-                    print("Data: ", decdata)
-                    motorctrl(int(rdata), int(vdata), int(hdata))
+            if data:
+                print("Data: ", decdata)
+                motorctrl(int(rdata), int(vdata), int(hdata))
+                batvoltage()
 
-                else:
-                    print("Klienten har lukket forbindelsen.\n")
-                    forbindelse.close()
-                    break
+                    
 
-except KeyboardInterrupt:
-    forbindelse.close()
-    g.cleanup()
+            else:
+                print("Klienten har lukket forbindelsen.\n")
+                forbindelse.close()
+                break
+            
+
+
 
 
     
