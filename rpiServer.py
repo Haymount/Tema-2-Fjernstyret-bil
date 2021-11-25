@@ -3,6 +3,8 @@
 import socket
 import RPi.GPIO as g
 from gpiozero import MCP3008
+import threading
+import time
 
 
 print("Kører serveren\n")
@@ -53,18 +55,54 @@ def batvoltage():
 
     voltage = round((adc.value*3.3)*(74/27), 2) #Her udregnes spændingen om fra den værdi adc værdi vi får. gpiozero laver adc værdien om til et tal mellem 0 og 1.
     print("voltage: " + str(voltage))
-    #c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #msg = b"Fuck"
-    #c.send(msg.encode())
-    #c.close()
 
+    strvoltage = str(voltage)
+    return strvoltage
 
+def batklient():
+    msgFromClient = batvoltage()
+    bytesToSend = msgFromClient.encode("UTF-8")
 
+    bufferSize = 1024
+
+    # Server IP address and Port number, change the IP address and port so it is acording to the servers
+
+    serverAddressPort = ("192.168.1.100", 4400)
+
+    # Connect2Server forms the thread - for each connection made to the server
+    def Connect2Server():
+        # Create a socket instance - A datagram socket
+        UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+        # Send message to server using created UDP socket
+        UDPClientSocket.sendto(bytesToSend, serverAddressPort)
+        # Receive message from the server
+        msgFromServer = UDPClientSocket.recvfrom(bufferSize)
+        msg = "Message from Rover {}".format(msgFromServer[0])
+        print(msg)
+
+    # Example show that server can handle many connections  (ThreadCount is the number of connections)
+    # The following should be rewritten to the need of the application
+    print("Client - Main thread started")
+    ThreadList = []
+    ThreadCount = 20
+
+    for index in range(ThreadCount):
+        ThreadInstance = threading.Thread(target=Connect2Server())
+        ThreadList.append(ThreadInstance)
+        ThreadInstance.start()
+
+    # Here we just wait to all connection threads are complete
+    for index in range(ThreadCount):
+        ThreadList[index].join()
+
+def knightriderlys():
+        time.sleep(0.2)
+        print("lys kører")
 
 
 #Loop starter her:
 while True:
-            
+    
     forbindelse, addresse = skt.accept()
     skt.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     print("Værten med " + str(addresse[0]) + " har etableret forbindelse.")
@@ -74,31 +112,32 @@ while True:
     vdata = 0
 
     
+    #x = threading.Thread(target=knightriderlys())
+    #x.start()
     while True:
-                
-            data = forbindelse.recv(64)
-            decdata = data.decode("UTF-8")
-            arrdata = decdata.split(",")
-
-            try:
-                rdata = arrdata[0] #Retnings styring
-                vdata = arrdata[2] #Venstre motor
-                hdata = arrdata[1] #Højre motor
-            except IndexError:
-                forbindelse.close()
         
+            
+        data = forbindelse.recv(64)
+        decdata = data.decode("UTF-8")
+        arrdata = decdata.split(",")
 
-            if data:
-                print("Data: ", decdata)
-                motorctrl(int(rdata), int(vdata), int(hdata))
-                batvoltage()
+        try:
+            rdata = arrdata[0] #Retnings styring
+            vdata = arrdata[2] #Venstre motor
+            hdata = arrdata[1] #Højre motor
+        except IndexError:
+            forbindelse.close()
+    
 
-                    
-
-            else:
-                print("Klienten har lukket forbindelsen.\n")
-                forbindelse.close()
-                break
+        if data:
+            print("Data: ", decdata)
+            motorctrl(int(rdata), int(vdata), int(hdata))
+            #batklient()
+        else:
+            print("Klienten har lukket forbindelsen.\n")
+            forbindelse.close()
+            break
+        
             
 
 
