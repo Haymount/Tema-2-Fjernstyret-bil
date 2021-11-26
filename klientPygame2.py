@@ -1,6 +1,8 @@
 import time
 import pygame
 import socket
+import socketserver
+import threading
 
 #DEn her kode har grafisk
 
@@ -29,18 +31,49 @@ print("Kører klienten\n")
 FPS = 60 #bestemmer maks fps. bare så det ikke ender med at lagge noget ud.
 
 skt = socket.socket() #Forbinder til Rasp... Husk at tjekke om ip'en og porten er den rigtige
+#skt.setblocking(False)
 
 host = "192.168.1.249" #Ip-addressen for Raspberry Pi
 port = 4200 #og ja det her er porten
 
 skt.connect((host, port))
-
-#print("Værten med " + str(skt.accept[0]) + " har etableret forbindelse.")
-#encodBatLiv = skt.accept.recv(64)
-#batLiv = encodBatLiv.decode("UTF-8")
-
+"""
+s = socket.socket
+hostI = "192.168.1.100" #Min Ip
+portI = 4400 #min port
+s.bind((hostI, portI))
+s.listen(1) #Lytter til indkomne forbindelser, en ad gangen
+"""
 programIcon = pygame.image.load("Tema 2\Tema-2-Fjernstyret-bil/mette.jpg")
 pygame.display.set_icon(programIcon)
+
+def bat():#Den virker ikke helt
+    #Change this to the correct ip address for server
+    ServerAddress = ("192.168.1.100", 4400)
+    class MyUDPRequestHandler(socketserver.DatagramRequestHandler):
+        def handle(self):
+            #Receive and print the datagram received from client
+            print("Recieved one request from {}".format(self.client_address[0]))
+            datagram = self.rfile.readline().strip()
+            print("Datagram Recieved from client is:".format(datagram))
+            print(datagram)
+            #Print the name of the thread
+            print("Thread Name:{}".format(threading.current_thread().name))
+            #Send a message to the client
+            self.wfile.write("Message from Rover! Hello Client".encode())
+    # Create a Server Instance
+    UDPServerObject = socketserver.ThreadingUDPServer(ServerAddress, MyUDPRequestHandler)
+    # Make the server wait forever serving connections
+    UDPServerObject.serve_forever()
+
+def modbesked(): #Det her lort virker ikke
+    try:
+        global batLiv
+        mod = skt.recv(64)
+        batLiv = mod.decode("utf-8")
+        print(batLiv)
+    except:
+        print("hej")
 
 def draw_windue(styr): #Her er noget styring til skærmen
     rotedede = pygame.transform.rotate(tar, angle) #Det her får billedet til at roterer
@@ -52,7 +85,6 @@ def draw_windue(styr): #Her er noget styring til skærmen
 
 def main(): #Det vigtige kode er her
     styr = pygame.Rect(195, 0, 507, 676)
-
     clock = pygame.time.Clock()
     gameLoop = True
     while gameLoop:
@@ -63,7 +95,7 @@ def main(): #Det vigtige kode er her
             elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                 keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
                 global angle
-
+            
                 if keys[pygame.K_w] and keys[pygame.K_d]: #Det samme som koden nedenuder bare en anden retning
                     data = "1,100,60,"
                     nyt_data = data.encode("UTF-8")
@@ -76,7 +108,7 @@ def main(): #Det vigtige kode er her
                     angle -= 35
                     
                 elif keys[pygame.K_w]: #Fuldskrue frem ad
-                    data = "1,80,100," #V sendes først også H muligvis den anden vej rundt
+                    data = "1,100,100," #V sendes først også H muligvis den anden vej rundt
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
@@ -108,7 +140,7 @@ def main(): #Det vigtige kode er her
                     skt.sendall(nyt_data)
                     angle += 50
 
-                elif keys[pygame.K_ESCAPE]:
+                elif keys[pygame.K_ESCAPE]: #Lukker bare programmet
                     pygame.quit()
 
                 else:
@@ -116,7 +148,10 @@ def main(): #Det vigtige kode er her
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle = 0
-
+                    #bat()
+                    #modbesked()
+                    print("stop")
+        #modbesked()
         draw_windue(styr)
     pygame.quit()
 
