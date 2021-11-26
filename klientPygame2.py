@@ -1,8 +1,6 @@
 import time
 import pygame
 import socket
-import socketserver
-import threading
 
 #DEn her kode har grafisk
 
@@ -37,34 +35,8 @@ host = "192.168.1.249" #Ip-addressen for Raspberry Pi
 port = 4200 #og ja det her er porten
 
 skt.connect((host, port))
-"""
-s = socket.socket
-hostI = "192.168.1.100" #Min Ip
-portI = 4400 #min port
-s.bind((hostI, portI))
-s.listen(1) #Lytter til indkomne forbindelser, en ad gangen
-"""
 programIcon = pygame.image.load("Tema 2\Tema-2-Fjernstyret-bil/mette.jpg")
 pygame.display.set_icon(programIcon)
-
-def bat():#Den virker ikke helt
-    #Change this to the correct ip address for server
-    ServerAddress = ("192.168.1.100", 4400)
-    class MyUDPRequestHandler(socketserver.DatagramRequestHandler):
-        def handle(self):
-            #Receive and print the datagram received from client
-            print("Recieved one request from {}".format(self.client_address[0]))
-            datagram = self.rfile.readline().strip()
-            print("Datagram Recieved from client is:".format(datagram))
-            print(datagram)
-            #Print the name of the thread
-            print("Thread Name:{}".format(threading.current_thread().name))
-            #Send a message to the client
-            self.wfile.write("Message from Rover! Hello Client".encode())
-    # Create a Server Instance
-    UDPServerObject = socketserver.ThreadingUDPServer(ServerAddress, MyUDPRequestHandler)
-    # Make the server wait forever serving connections
-    UDPServerObject.serve_forever()
 
 def modbesked(): #Det her lort virker ikke
     try:
@@ -148,10 +120,7 @@ def main(): #Det vigtige kode er her
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle = 0
-                    #bat()
-                    #modbesked()
                     print("stop")
-        #modbesked()
         draw_windue(styr)
     pygame.quit()
 
