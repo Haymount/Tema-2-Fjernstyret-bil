@@ -4,8 +4,8 @@ import socket
 
 #DEn her kode har grafisk
 #Her impotere vi 2 billeder (husk at tjekke om billedernes lokition er rigtige)
-tar = pygame.image.load("Opgave/test socket/sjovTing.png") #billedet viser et rat
-programIcon = pygame.image.load("Tema 2\Tema-2-Fjernstyret-bil/mette.jpg") #billedet er til iconet i hjørnet
+tar = pygame.image.load("Tema-2-Fjernstyret-bil/sjovTing.png") #billedet viser et rat
+programIcon = pygame.image.load("Tema-2-Fjernstyret-bil/mette.jpg") #billedet er til iconet i hjørnet
 
 WIDTH, HEIGHT = 900, 743 #Det er længden og højden på winduet som popper op når programet køre
 #Her kommmer der et par farver
