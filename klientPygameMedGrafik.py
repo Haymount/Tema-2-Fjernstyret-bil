@@ -3,23 +3,21 @@ import pygame
 import socket
 
 #DEn her kode har grafisk
-
-tar = pygame.image.load("Opgave/test socket/sjovTing.png") #Sejt sådan impoterer man et billede
-programIcon = pygame.image.load("Tema 2\Tema-2-Fjernstyret-bil/mette.jpg") #impoter billede til icon
-angle = 0 #viklen som billedet drejer med
+#Her impotere vi 2 billeder (husk at tjekke om billedernes lokition er rigtige)
+tar = pygame.image.load("Tema 2/Tema-2-Fjernstyret-bil/sjovTing.png") #billedet viser et rat
+programIcon = pygame.image.load("Tema 2/Tema-2-Fjernstyret-bil/mette.jpg") #billedet er til iconet i hjørnet
 
 WIDTH, HEIGHT = 900, 743 #Det er længden og højden på winduet som popper op når programet køre
 #Her kommmer der et par farver
 farve1 = (219, 112, 147) #palevioletred
-farve2 = (255, 255, 0) #gul
+farve2 = (0, 255, 0) #citron
 farve3 = (0, 0, 0) #sort
 farve4 = (0, 255, 128) #gørn ca.
-skærmfarve = (0, 255, 185) #siger lidt sig selv, men det er baggrundsfarven på vores windue(farven står i RGB)
+skærmfarve = (255, 0, 0) #siger lidt sig selv, men det er baggrundsfarven på vores windue(farven står i RGB)
 
 FPS = 60 #bestemmer maks fps. bare så det ikke ender med at lagge noget ud.
-
+angle = 0 #viklen som billedet drejer med
 batLiv = 5.2 #hvor meget strøm der er
-bbatLiv = 0
 
 pygame.init()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT)) #Her tegner vi selve skærmen 
@@ -34,18 +32,20 @@ host = "192.168.1.249" #Ip-addressen for Raspberry Pi
 port = 4200 #og ja det her er porten
 skt.connect((host, port)) #connecter til serveren med den ip og port oven over
 
-def modbesked(): #Det virker næsten, batLiv skal lige dif
+def modbesked(): #Modtager 
     try:
         global batLiv
-        global bbatLiv
         mod = skt.recv(64)
-        bbbatLiv = mod.decode("UTF-8")
-        bbatLiv = float(bbbatLiv)
-        print(bbatLiv)
-        print("Received" + repr(bbatLiv))
-        batLiv = bbatLiv
-    except socket.error: #Burde printe det, hvis noget fucker det op oven over
+        decMod = mod.decode("UTF-8")
+        splitMod = decMod.split(",")
+        intMod = float(splitMod[0])
+        print(intMod)
+        batLiv = intMod
+        print("Received" + str(batLiv))
+    except socket.error: #Burde printe det, hvis noget fucker det op oven over i stedet for et crash
         print("fuck")
+    except ValueError:
+        print("diller")
 
 def draw_windue(styr): #Alt det grafiske og navnet på porgamet
     pygame.display.set_icon(programIcon) #ændre det lille icon i hjørnet
@@ -53,8 +53,8 @@ def draw_windue(styr): #Alt det grafiske og navnet på porgamet
     rotedede = pygame.transform.rotate(tar, angle) #Det her får billedet til at roterer
     WIN.fill(skærmfarve) #Det her er baggrundsfarven
     WIN.blit(rotedede, (styr.x, styr.y)) #Bare et billede af et rat 
-    pygame.draw.rect(WIN, farve2, (-315, 723, 500, 20)) #Her tegner vi barrti lingen (ved sku ik om den virker endnu)
-    pygame.draw.rect(WIN, farve3, (-315, 723, (batLiv*61), 20))
+    pygame.draw.rect(WIN, farve3, (-315, 723, 500, 20)) #Her tegner vi barrti lingen (ved sku ik om den virker endnu)
+    pygame.draw.rect(WIN, farve2, (-315, 723, (batLiv*61), 20)) #udreningen for at få batteriet til at virke
     pygame.display.update()
 
 def main(): #Det vigtige kode er her
@@ -115,6 +115,7 @@ def main(): #Det vigtige kode er her
                     angle += 50
 
                 elif keys[pygame.K_ESCAPE]: #Lukker bare programmet
+                    print("Du har stoppet spillet med Esc")
                     pygame.quit()
 
                 else:
@@ -124,9 +125,7 @@ def main(): #Det vigtige kode er her
                     angle = 0
                     print("stop")
                     modbesked()
-                    batLiv = int(bbatLiv)
                     print("BatLiv " + str(batLiv))
-                    print("bb " + str(bbatLiv))
         
         draw_windue(styr)
     pygame.quit()
