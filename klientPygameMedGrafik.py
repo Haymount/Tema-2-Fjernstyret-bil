@@ -4,8 +4,8 @@ import socket
 
 #DEn her kode har grafisk
 #Her impotere vi 2 billeder (husk at tjekke om billedernes lokition er rigtige)
-tar = pygame.image.load("Tema-2-Fjernstyret-bil/sjovTing.png") #billedet viser et rat
-programIcon = pygame.image.load("Tema-2-Fjernstyret-bil/mette.jpg") #billedet er til iconet i hjørnet
+tar = pygame.image.load("Tema 2/Tema-2-Fjernstyret-bil/sjovTing.png") #billedet viser et rat
+programIcon = pygame.image.load("Tema 2/Tema-2-Fjernstyret-bil/mette.jpg") #billedet er til iconet i hjørnet
 
 WIDTH, HEIGHT = 900, 743 #Det er længden og højden på winduet som popper op når programet køre
 #Her kommmer der et par farver
@@ -44,6 +44,8 @@ def modbesked(): #Modtager
         print("Received" + str(batLiv))
     except socket.error: #Burde printe det, hvis noget fucker det op oven over i stedet for et crash
         print("fuck")
+    except ValueError:
+        print("diller")
 
 def draw_windue(styr): #Alt det grafiske og navnet på porgamet
     pygame.display.set_icon(programIcon) #ændre det lille icon i hjørnet
