@@ -13,9 +13,8 @@ print("Kører klienten\n")
 
 skt = socket.socket()
 
-host = "192.168.1.249" #Ip-addressen for Raspberry Pi
+host = "192.168.1.213" #Ip-addressen for Raspberry Pi
 port = 4200
-
 skt.connect((host, port))
 
 while gameLoop:
@@ -26,37 +25,37 @@ while gameLoop:
                 keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
     
                 if keys[pygame.K_w] and keys[pygame.K_d]: 
-                    data = "1,100,60"
+                    data = "1,100,40,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     
                 elif keys[pygame.K_w] and keys[pygame.K_a]:
-                    data = "1,80,100"
+                    data = "1,40,100,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     
                 elif keys[pygame.K_w]: #Fuldskrue frem ad
-                    data = "1,100,75" #V sendes først også H muligvis den anden vej rundt
+                    data = "1,100,40," #V sendes først også H muligvis den anden vej rundt
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
                 elif keys[pygame.K_a]: #Her burde den dreje til venstre
-                    data = "1,0,100"
+                    data = "1,0,100,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     
                 elif keys[pygame.K_s]: #Fuldstop ind til videre -tror jeg
-                    data = "0,100,55"
+                    data = "0,100,35,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
                 elif keys[pygame.K_d]: #Her dreje til højre man gør
-                    data = "1,100,0"
+                    data = "1,100,0,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
                 else:
-                    data = "0,0,0" #Her stopper bilen hvis vi ikke bruger nogle knapper
+                    data = "0,0,0," #Her stopper bilen hvis vi ikke bruger nogle knapper
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 

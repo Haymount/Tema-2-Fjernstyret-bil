@@ -26,9 +26,9 @@ pygame.display.set_caption("HasselHoff") #Det er navnet på programet
 print("Kører klienten\n")#Bare for at teste om programmet køre
 
 skt = socket.socket() #Forbinder til Rasp... Husk at tjekke om ip'en og porten er den rigtige
-skt.settimeout(0.1)
+skt.settimeout(3)
 
-host = "192.168.1.249" #Ip-addressen for Raspberry Pi
+host = "192.168.1.213" #Ip-addressen for Raspberry Pi
 port = 4200 #og ja det her er porten
 skt.connect((host, port)) #connecter til serveren med den ip og port oven over
 
@@ -71,34 +71,34 @@ def main(): #Det vigtige kode er her
                 global angle
             
                 if keys[pygame.K_w] and keys[pygame.K_d]: #Burde at dreje imens den kører
-                    data = "1,100,60,"
+                    data = "1,75,17,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle += 35
                 elif keys[pygame.K_w] and keys[pygame.K_a]: #Burde at dreje imens den kører
-                    data = "1,40,100,"
+                    data = "1,17,80,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle -= 35
                     
                 elif keys[pygame.K_w]: #Fuldskrue frem ad
-                    data = "1,100,100," #V sendes først også H muligvis den anden vej rundt
+                    data = "1,100,90," #V sendes først også H muligvis den anden vej rundt
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
                 elif keys[pygame.K_s] and keys[pygame.K_d]:
-                    data = "0,100,60,"
+                    data = "0,75,30,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle += 35
                 elif keys[pygame.K_s] and keys[pygame.K_a]:
-                    data = "0,40,100,"
+                    data = "0,17,80,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle -= 35
 
                 elif keys[pygame.K_s]: #Fuldstop ind til videre -tror jeg
-                    data = "0,80,100,"
+                    data = "0,100,100,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
