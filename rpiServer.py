@@ -27,7 +27,7 @@ class setup(object):
     def setup():
         print("Kører serveren\n")
 
-        host = "192.168.1.249" # Dette er IP-adressen for Raspberry Pi
+        host = "192.168.1.213" # Dette er IP-adressen for Raspberry Pi
         port = 4200 # Husk at portnumre på 1024 og lavere er priviligerede
 
         skt = socket.socket() # Man kan give argumenter til denne (f.eks. om det skal være TCP eller UDP)
@@ -112,15 +112,15 @@ def knightriderlys():
     
 
     while True:
-        print("-- Step : "+ str(StepCounter) +" --")
+        #print("-- Step : "+ str(StepCounter) +" --")
         for pinref in range(0, 6):
             xpin=RpiGPIO[pinref]#
             # Check if LED should be on or off
             if Seq[StepCounter][pinref]!=0:
-                print(" Enable " + str(xpin))
+                #print(" Enable " + str(xpin))
                 g.output(xpin, True)
             else:
-                print(" Disable " + str(xpin))
+                #print(" Disable " + str(xpin))
                 g.output(xpin, False)
     
         StepCounter += StepDir
