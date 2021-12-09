@@ -70,12 +70,12 @@ def main(): #Det vigtige kode er her
                 keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
                 global angle
             
-                if keys[pygame.K_w] and keys[pygame.K_d]: #Det samme som koden nedenuder bare en anden retning
+                if keys[pygame.K_w] and keys[pygame.K_d]: #Burde at dreje imens den kører
                     data = "1,100,60,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     angle += 35
-                elif keys[pygame.K_w] and keys[pygame.K_a]: #Burde at dreje imens den kører bagud
+                elif keys[pygame.K_w] and keys[pygame.K_a]: #Burde at dreje imens den kører
                     data = "1,40,100,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
