@@ -25,17 +25,17 @@ while gameLoop:
                 keys = pygame.key.get_pressed() #Den her siger hvad der skal gøres, finds forskellige taster bliver trykket på
     
                 if keys[pygame.K_w] and keys[pygame.K_d]: 
-                    data = "1,100,40,"
+                    data = "1,75,17,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     
                 elif keys[pygame.K_w] and keys[pygame.K_a]:
-                    data = "1,40,100,"
+                    data = "1,17,80,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
                     
                 elif keys[pygame.K_w]: #Fuldskrue frem ad
-                    data = "1,100,40," #V sendes først også H muligvis den anden vej rundt
+                    data = "1,100,90," #V sendes først også H muligvis den anden vej rundt
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
@@ -45,7 +45,7 @@ while gameLoop:
                     skt.sendall(nyt_data)
                     
                 elif keys[pygame.K_s]: #Fuldstop ind til videre -tror jeg
-                    data = "0,100,35,"
+                    data = "0,100,100,"
                     nyt_data = data.encode("UTF-8")
                     skt.sendall(nyt_data)
 
